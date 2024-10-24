@@ -1,6 +1,6 @@
-# 11ty and Lit
+# 11ty and Lit and Typescript
 
-This repo is an example of using 11ty and Lit together.
+This repo is an example of using 11ty and Lit together with typecript. 
 
 ## Technologies
 
@@ -10,6 +10,7 @@ This repo is an example of using 11ty and Lit together.
 - [@lit-labs/ssr](https://github.com/lit/lit/tree/main/packages/labs/ssr)
 - [@lit-labs/eleventy-plugin-lit](https://github.com/lit/lit/tree/main/packages/labs/eleventy-plugin-lit)
 - [Wireit](https://github.com/google/wireit)
+- [Typescript](https://www.typescriptlang.org/)
 
 ## Quickstart
 
@@ -27,7 +28,7 @@ npm i && npm start
 
 ## Explanation
 
-11ty is a static site builder. Lit is a library that makes it easy to build Web Components. In this example, we combine the two so that you can sprinkle interactivity in a static site with Lit. We also use 11ty islands to make it easy to SSR your components and control how they are hydrated to provide an "island of interactivity".
+11ty is a static site builder. Lit is a library that makes it easy to build Web Components. TypeScript is a strongly typed programming language that builds on JavaScript. In this example, we combine the three so that you can sprinkle interactivity in a static site with Lit. We also use 11ty islands to make it easy to SSR your components and control how they are hydrated to provide an "island of interactivity".
 
 ### Directory Structure
 
@@ -57,9 +58,13 @@ Most of these are for templating in 11ty. See the 11ty docs for more info. If yo
 
 This directory holds your Lit components. If you add a component here, to hook it up to SSR, add it to the `src/ssr.ts` file and make sure to add it to `tsEntrypoints` in `esbuild.config.mjs` to make sure it's included in the bundler. If you don't want to SSR a component, you can add it to the appropriate file in `src/pages/<your page name>.ts`;
 
+#### `site/hydration-entrypoints`
+
+This holds files that include 'import' notation to import the components used in server side rendering (SSR) and require hydration. The pages with .ts extention match the structure and name as those files in the `site` folder.
+
 #### `src/pages` directory
 
-This is a place to put logic for individual pages. If you want to add a component to a page, you can import it here and just use it in your templates. These files are automatically added to the build.
+This is a place to put logic for individual pages. If you want to add a component to a page, you can import it here and just use it in your templates. These files are automatically added to the build. When referencing the .ts components in this folder, you must use the javascript location defined in the eleventy.cjs file, which is set to '/js/*/[page name]'.
 
 #### `src/ssr.ts` file
 
